@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/folders/{id}/tasks', 'TaskController@index')->name('tasks.index');
 
@@ -27,3 +25,4 @@ Route::post('/folders/{id}/tasks/create', 'TaskController@create');
 
 Route::get('/folders/{id}/tasks/{task_id}/edit', 'TaskController@showEditForm')->name('tasks.edit');
 Route::post('/folders/{id}/tasks/{task_id}/edit', 'TaskController@edit');
+Auth::routes();
