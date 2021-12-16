@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Mail\ResetPassword; // ★ 追加
+use Illuminate\Support\Facades\Mail; // ★ 追加
 
 class User extends Authenticatable
 {
@@ -29,6 +31,14 @@ class User extends Authenticatable
     ];
 
     /**
+     * ★ パスワード再設定メールを送信する
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        Mail::to($this)->send(new ResetPassword($token));
+    }
+
+    /**
      * The attributes that should be cast to native types.
      *
      * @var array
@@ -41,4 +51,6 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Folder');
     }
+
+    
 }
